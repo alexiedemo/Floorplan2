@@ -1,0 +1,64 @@
+workflows:
+  ios-simulator-quicklaunch:
+    name: "iOS • Simulator (Quick Launch)"
+    max_build_duration: 60
+    environment:
+      vars:
+        XCODE_VERSION: "16.0"
+        WORKSPACE_PATH: "./CreateUseIphone.xcodeproj/project.xcworkspace"
+        SCHEME: "CI-Auto"
+        BUNDLE_ID: "com.codemagic.lidarroomscanner"
+      xcode: "$XCODE_VERSION"
+    scripts:
+      - name: "Build for iOS Simulator"
+        script: |
+          set -e
+          rm -rf $CM_BUILD_DIR/DerivedData || true
+          xcodebuild -workspace "$WORKSPACE_PATH" -scheme "$SCHEME" -configuration Debug -sdk iphonesimulator -destination "platform=iOS Simulator,name=iPhone 15 Pro" -derivedDataPath $CM_BUILD_DIR/DerivedData clean build
+    artifacts:
+      - $CM_BUILD_DIR/DerivedData/Build/Products/Debug-iphonesimulator/*.app
+
+  ios-testflight:
+    name: "iOS • TestFlight (Automatic Signing)"
+    max_build_duration: 90
+    environment:
+      vars:
+        XCODE_VERSION: "16.0"
+        WORKSPACE_PATH: "./CreateUseIphone.xcodeproj/project.xcworkspace"
+        SCHEME: "CI-Auto"
+        BUNDLE_ID: "com.codemagic.lidarroomscanner"
+      xcode: "$XCODE_VERSION"
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: "$BUNDLE_ID"
+    scripts:
+      - name: "Archive"
+        script: |
+          set -e
+          rm -rf $CM_BUILD_DIR/build || true
+          xcodebuild -workspace "$WORKSPACE_PATH" -scheme "$SCHEME" -configuration Release -destination generic/platform=iOS -archivePath $CM_BUILD_DIR/build/$SCHEME.xcarchive clean archive
+      - name: "Export IPA"
+        script: |
+          set -e
+          cat > $CM_BUILD_DIR/ExportOptions.plist << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store</string>
+            <key>uploadSymbols</key><true/>
+            <key>signingStyle</key><string>manual</string>
+            <key>destination</key><string>export</string>
+          </dict>
+          </plist>
+          EOF
+          xcodebuild -exportArchive -archivePath $CM_BUILD_DIR/build/$SCHEME.xcarchive -exportPath $CM_BUILD_DIR/build/export -exportOptionsPlist $CM_BUILD_DIR/ExportOptions.plist
+    artifacts:
+      - $CM_BUILD_DIR/build/export/*.ipa
+      - $CM_BUILD_DIR/build/*.xcarchive
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: PPR3SL2UML
+        issuer_id: 65fcc002-800e-4a11-bc49-6e268c6a0f3d
+        submit_to_testflight: true
