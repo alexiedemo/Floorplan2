@@ -1,0 +1,78 @@
+// !$*UTF8*$!
+{
+  archiveVersion = 1;
+  classes = {};
+  objectVersion = 56;
+  objects = {
+/* BuildFiles */
+    B1 /* App.swift in Sources */ = {isa = PBXBuildFile; fileRef = F1 /* App.swift */; };
+    B2 /* HomeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F2 /* HomeView.swift */; };
+    B3 /* OnboardingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F3 /* OnboardingView.swift */; };
+    B4 /* Theme.swift in Sources */ = {isa = PBXBuildFile; fileRef = F4 /* Theme.swift */; };
+    B5 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = F5 /* Settings.swift */; };
+    B6 /* AboutView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F6 /* AboutView.swift */; };
+    B7 /* ScannerGatewayView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F7 /* ScannerGatewayView.swift */; };
+    B8 /* RoomPlanScannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = F8 /* RoomPlanScannerView.swift */; };
+    B9 /* Models.swift in Sources */ = {isa = PBXBuildFile; fileRef = F9 /* Models.swift */; };
+    B10 /* Converter.swift in Sources */ = {isa = PBXBuildFile; fileRef = F10 /* Converter.swift */; };
+    B11 /* EditorViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = F11 /* EditorViews.swift */; };
+    B12 /* Exporters.swift in Sources */ = {isa = PBXBuildFile; fileRef = F12 /* Exporters.swift */; };
+    B13 /* Store.swift in Sources */ = {isa = PBXBuildFile; fileRef = F13 /* Store.swift */; };
+    B14 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A1 /* Assets.xcassets */; };
+/* FileRefs */
+    F1 /* App.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = App.swift; };
+    F2 /* HomeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeView.swift; };
+    F3 /* OnboardingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OnboardingView.swift; };
+    F4 /* Theme.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Theme.swift; };
+    F5 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; };
+    F6 /* AboutView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AboutView.swift; };
+    F7 /* ScannerGatewayView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ScannerGatewayView.swift; };
+    F8 /* RoomPlanScannerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RoomPlanScannerView.swift; };
+    F9 /* Models.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Models.swift; };
+    F10 /* Converter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Converter.swift; };
+    F11 /* EditorViews.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditorViews.swift; };
+    F12 /* Exporters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exporters.swift; };
+    F13 /* Store.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Store.swift; };
+    A1 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; };
+    P1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; };
+/* Groups */
+    G0 = {isa = PBXGroup; children = (G1 /* CreateUseIphone */, G2 /* Products */); sourceTree = "<group>"; };
+    G1 /* CreateUseIphone */ = {isa = PBXGroup; children = (F1, F2, F3, F4, F5, F6, F7, F8, F9, F10, F11, F12, F13, A1, P1); path = CreateUseIphone; sourceTree = "<group>"; };
+    G2 /* Products */ = {isa = PBXGroup; children = (PR1 /* CreateUseIphone.app */); name = Products; sourceTree = "<group>"; };
+/* Targets */
+    T1 /* CreateUseIphone */ = {
+      isa = PBXNativeTarget;
+      buildConfigurationList = CL1 /* Config list for CreateUseIphone */;
+      buildPhases = (SP1 /* Sources */, FP1 /* Frameworks */, RP1 /* Resources */);
+      name = CreateUseIphone;
+      productName = CreateUseIphone;
+      productReference = PR1 /* CreateUseIphone.app */;
+      productType = "com.apple.product-type.application";
+    };
+/* Project */
+    PJ /* Project object */ = {
+      isa = PBXProject;
+      attributes = { LastSwiftUpdateCheck = 1600; LastUpgradeCheck = 1600; ORGANIZATIONNAME = "AlexieApps"; };
+      buildConfigurationList = CL0 /* Config list for Project */;
+      compatibilityVersion = "Xcode 16.0";
+      developmentRegion = en;
+      knownRegions = (en, Base);
+      mainGroup = G0;
+      productRefGroup = G2 /* Products */;
+      targets = (T1 /* CreateUseIphone */);
+    };
+/* Phases */
+    FP1 /* Frameworks */ = { isa = PBXFrameworksBuildPhase; buildActionMask = 2147483647; files = (); runOnlyForDeploymentPostprocessing = 0; };
+    RP1 /* Resources */ = { isa = PBXResourcesBuildPhase; buildActionMask = 2147483647; files = (B14 /* Assets.xcassets in Resources */); runOnlyForDeploymentPostprocessing = 0; };
+    SP1 /* Sources */ = { isa = PBXSourcesBuildPhase; buildActionMask = 2147483647; files = (B1, B2, B3, B4, B5, B6, B7, B8, B9, B10, B11, B12, B13); runOnlyForDeploymentPostprocessing = 0; };
+/* Products */
+    PR1 /* CreateUseIphone.app */ = { isa = PBXFileReference; explicitFileType = wrapper.application; path = CreateUseIphone.app; sourceTree = BUILT_PRODUCTS_DIR; };
+/* Configs */
+    CDBG /* Debug */ = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_BUNDLE_IDENTIFIER = com.codemagic.lidarroomscanner; INFOPLIST_FILE = CreateUseIphone/Info.plist; IPHONEOS_DEPLOYMENT_TARGET = 15.0; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks"); }; name = Debug; };
+    CREL /* Release */ = { isa = XCBuildConfiguration; buildSettings = { PRODUCT_BUNDLE_IDENTIFIER = com.codemagic.lidarroomscanner; INFOPLIST_FILE = CreateUseIphone/Info.plist; IPHONEOS_DEPLOYMENT_TARGET = 15.0; SWIFT_VERSION = 5.0; TARGETED_DEVICE_FAMILY = "1,2"; LD_RUNPATH_SEARCH_PATHS = ("$(inherited)", "@executable_path/Frameworks"); }; name = Release; };
+/* Config lists */
+    CL0 /* Config list for Project */ = { isa = XCConfigurationList; buildConfigurations = (CDBG, CREL); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+    CL1 /* Config list for CreateUseIphone */ = { isa = XCConfigurationList; buildConfigurations = (CDBG, CREL); defaultConfigurationIsVisible = 0; defaultConfigurationName = Release; };
+  };
+  rootObject = PJ /* Project object */;
+}
