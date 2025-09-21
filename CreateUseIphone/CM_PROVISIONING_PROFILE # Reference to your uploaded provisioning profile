@@ -1,0 +1,15 @@
+5.  **Verify Team ID:** Double-check that the `YOUR_TEAM_ID` environment variable in Codemagic is set to your correct Apple Developer Team ID.
+
+6.  **Clean Build:** In Codemagic, trigger a new build, and make sure to select the option to clean the build cache. This ensures that the new code signing settings are applied correctly.
+
+7.  **Automatic Signing:** If you're using automatic signing in Xcode, ensure that the correct team and distribution certificate are selected in the Xcode project settings. Codemagic can then use automatic signing to generate the necessary profiles.
+
+**Important Notes:**
+
+*   **Explicit Profile:** Using an explicit provisioning profile (one tied to a specific App ID) is generally recommended for App Store distribution.
+*   **Certificate Validity:** Ensure your distribution certificate is valid and not expired.
+*   **App Store Connect:** Make sure you have created an app record in App Store Connect with the same bundle identifier.
+
+Here's the updated `codemagic.yaml` file:
+
+### Filename: codemagic.yaml
