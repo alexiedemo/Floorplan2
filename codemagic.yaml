@@ -1,0 +1,63 @@
+
+workflows:
+  ios_testflight:
+    name: "iOS TestFlight Automatic Signing"
+    max_build_duration: 90
+    environment:
+      vars:
+        XCODE_VERSION: "16.0"
+        WORKSPACE_PATH: "./CreateUseIphone.xcodeproj/project.xcworkspace"
+        SCHEME: "CI-Auto"
+        BUNDLE_ID: "com.codemagic.lidarroomscanner"
+        ASC_KEY_ID: "$ASC_KEY_ID"
+        ASC_ISSUER_ID: "$ASC_ISSUER_ID"
+        TEAM_ID: "$TEAM_ID"
+      xcode: "$XCODE_VERSION"
+      ios_signing:
+        distribution_type: app_store
+        bundle_identifier: "$BUNDLE_ID"
+    scripts:
+      - name: "Signing diagnostics"
+        script: |
+          set -e
+          echo "Bundle ID:"
+          /usr/libexec/PlistBuddy -c "Print :CFBundleIdentifier" ./CreateUseIphone/Info.plist || true
+          echo "Team ID: ${TEAM_ID}"
+          echo "ASC Key ID: ${ASC_KEY_ID}"
+          echo "ASC Issuer ID: ${ASC_ISSUER_ID}"
+          echo "Export signingStyle: automatic"
+      - name: "Bump build number"
+        script: |
+          set -e
+          BN=$(date +"%Y%m%d%H%M")
+          /usr/libexec/PlistBuddy -c "Set :CFBundleVersion $BN" ./CreateUseIphone/Info.plist
+      - name: "Archive"
+        script: |
+          set -e
+          rm -rf "$CM_BUILD_DIR/build" || true
+          xcodebuild -workspace "$WORKSPACE_PATH" -scheme "$SCHEME" -configuration Release -destination "generic/platform=iOS" -archivePath "$CM_BUILD_DIR/build/$SCHEME.xcarchive" clean archive
+      - name: "Export IPA"
+        script: |
+          set -e
+          cat > "$CM_BUILD_DIR/ExportOptions.plist" << 'EOF'
+          <?xml version="1.0" encoding="UTF-8"?>
+          <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+          <plist version="1.0">
+          <dict>
+            <key>method</key><string>app-store</string>
+            <key>uploadSymbols</key><true/>
+            <key>signingStyle</key><string>automatic</string>
+            <key>destination</key><string>export</string>
+          </dict>
+          </plist>
+          EOF
+          xcodebuild -exportArchive -archivePath "$CM_BUILD_DIR/build/$SCHEME.xcarchive" -exportPath "$CM_BUILD_DIR/build/export" -exportOptionsPlist "$CM_BUILD_DIR/ExportOptions.plist"
+    artifacts:
+      - $CM_BUILD_DIR/build/export/*.ipa
+      - $CM_BUILD_DIR/build/*.xcarchive
+    publishing:
+      app_store_connect:
+        api_key: $APP_STORE_CONNECT_PRIVATE_KEY
+        key_id: $ASC_KEY_ID
+        issuer_id: $ASC_ISSUER_ID
+        submit_to_testflight: true
